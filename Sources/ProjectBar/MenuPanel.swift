@@ -118,12 +118,12 @@ struct MenuPanel: View {
             state.selectedTab = id
         } label: {
             Text(label)
-                .font(PBFont.tab)
+                .font(selected ? PBFont.tabSelected : PBFont.tab)
                 .lineLimit(1)
                 .padding(.horizontal, 12)
                 .padding(.vertical, 7)
                 .background(selected ? PBTheme.blue : PBTheme.blueSoft)
-                .foregroundStyle(selected ? Color.white : Color.primary.opacity(0.85))
+                .foregroundStyle(selected ? Color.white : PBTheme.blue)
                 .clipShape(Capsule())
         }
         .buttonStyle(.plain)
@@ -174,7 +174,7 @@ struct MenuPanel: View {
         Button(action: action) {
             HStack(spacing: 5) {
                 Image(systemName: systemImage)
-                    .font(.system(size: 12, weight: .semibold))
+                    .font(.system(size: 12, weight: .regular))
                 Text(title)
             }
         }

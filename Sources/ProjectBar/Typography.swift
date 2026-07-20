@@ -3,8 +3,19 @@ import SwiftUI
 /// Visual system matched to the ProjectBar reference mockups (layout + color).
 enum PBTheme {
     static let blue = Color(red: 0.0, green: 0.478, blue: 1.0) // #007AFF-ish
-    static let blueSoft = Color(red: 0.90, green: 0.94, blue: 1.0)
-    static let track = Color(red: 0.90, green: 0.91, blue: 0.93)
+    /// Inactive tab fill — soft blue in light mode, subtle elevated gray in dark.
+    static let blueSoft = Color(nsColor: NSColor(name: nil, dynamicProvider: { appearance in
+        if appearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua {
+            return NSColor(calibratedWhite: 1.0, alpha: 0.14)
+        }
+        return NSColor(calibratedRed: 0.90, green: 0.94, blue: 1.0, alpha: 1.0)
+    }))
+    static let track = Color(nsColor: NSColor(name: nil, dynamicProvider: { appearance in
+        if appearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua {
+            return NSColor(calibratedWhite: 1.0, alpha: 0.12)
+        }
+        return NSColor(calibratedRed: 0.90, green: 0.91, blue: 0.93, alpha: 1.0)
+    }))
     static let textPrimary = Color.primary
     static let textSecondary = Color.secondary
     static let estimatedOrange = Color(red: 0.95, green: 0.45, blue: 0.15)
@@ -60,21 +71,23 @@ enum PBTheme {
 }
 
 enum PBFont {
+    // Match reference mockup weights: bold section chrome, regular body/list/footer.
     static let brand = Font.system(size: 16, weight: .bold)
     static let title = Font.system(size: 18, weight: .bold)
     static let section = Font.system(size: 13, weight: .bold)
     static let body = Font.system(size: 13, weight: .regular)
-    static let bodyMedium = Font.system(size: 13, weight: .semibold)
+    static let bodyMedium = Font.system(size: 13, weight: .regular) // project list names
     static let meta = Font.system(size: 11, weight: .regular)
-    static let metaMedium = Font.system(size: 11, weight: .medium)
-    static let value = Font.system(size: 12, weight: .bold).monospacedDigit()
+    static let metaMedium = Font.system(size: 11, weight: .regular)
+    static let value = Font.system(size: 12, weight: .regular).monospacedDigit()
     static let valueLarge = Font.system(size: 22, weight: .bold).monospacedDigit()
-    static let percent = Font.system(size: 12, weight: .bold).monospacedDigit()
+    static let percent = Font.system(size: 12, weight: .semibold).monospacedDigit()
     static let badge = Font.system(size: 10, weight: .semibold)
-    static let menuAction = Font.system(size: 12, weight: .semibold)
+    static let menuAction = Font.system(size: 12, weight: .regular)
     static let menuBar = Font.system(size: 12, weight: .semibold).monospacedDigit()
-    static let tab = Font.system(size: 12, weight: .semibold)
-    static let day = Font.system(size: 10, weight: .medium)
+    static let tab = Font.system(size: 12, weight: .regular)
+    static let tabSelected = Font.system(size: 12, weight: .semibold)
+    static let day = Font.system(size: 10, weight: .regular)
 }
 
 struct SectionRule: View {
