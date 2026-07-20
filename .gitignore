@@ -5,3 +5,6 @@ dist/
 .swiftpm/
 DerivedData/
 *.xcuserstate
+
+# Local-only social demo assets (fictional UI captures — do not publish)
+docs/demo/
